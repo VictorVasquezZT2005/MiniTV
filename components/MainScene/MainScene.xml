@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MainScene" extends="Scene">
+    <script type="text/brightscript" uri="pkg:/components/MainScene/MainScene.brs" />
+    
+    <children>
+        <LabelList 
+            id="channelList" 
+            translation="[50, 50]" 
+            itemSize="[440, 48]" />
+
+        <Video 
+            id="videoPlayer" 
+            translation="[520, 50]" 
+            width="710" 
+            height="400" />
+
+        <Label 
+            id="statusLabel" 
+            translation="[50, 640]" 
+            text="" />
+        
+        <get_channel_list id="loadTask" />
+    </children>
+</component>

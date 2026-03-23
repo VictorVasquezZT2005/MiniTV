@@ -1,0 +1,10 @@
+title=MiniTV
+minor_version=0
+build_version=01
+mm_icon_focus_hd=pkg:/images/MiniTV.jpg
+requires_audiometadata=1
+bs_libs_required=roku_ads_lib
+splash_screen_fhd=pkg:/images/MiniTV.jpg
+splash_color=#808080
+splash_min_time=0
+ui_resolutions=hd
