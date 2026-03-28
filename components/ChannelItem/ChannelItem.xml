@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    ChannelItem.xml – MiniTV  |  700 × 100 px
+    Filosofía de foco:
+      · El Rectangle de fondo NUNCA cambia de color (siempre transparente/negro)
+      · El foco se indica SOLO con:
+          1. Línea izquierda 3px violeta
+          2. Texto blanco brillante
+          3. Categoría violeta suave
+      · Sin flechas ›
+      · Sin badge EN VIVO en la lista
+      · Sin bloque morado en ningún estado
+-->
+<component name="ChannelItem" extends="Group">
+    <interface>
+        <field id="itemContent"  type="node"  onChange="showContent" />
+        <field id="focusPercent" type="float" onChange="onFocusChange" />
+    </interface>
+
+    <script type="text/brightscript">
+        <![CDATA[
+        sub init()
+            m.accentBar = m.top.findNode("accentBar")
+            m.logoBg    = m.top.findNode("logoBg")
+            m.logo      = m.top.findNode("logo")
+            m.title     = m.top.findNode("title")
+            m.category  = m.top.findNode("category")
+            m.divLine   = m.top.findNode("divLine")
+        end sub
+
+        sub showContent()
+            c = m.top.itemContent
+            if c = invalid then return
+            m.title.text    = c.title
+            m.category.text = UCase(c.description)
+            if c.hdPosterUrl <> invalid and c.hdPosterUrl <> ""
+                m.logo.uri = c.hdPosterUrl
+            end if
+        end sub
+
+        sub onFocusChange()
+            f = m.top.focusPercent > 0.5
+            if f
+                m.accentBar.opacity = 1.0
+                m.title.color       = "#FFFFFF"
+                m.category.color    = "#9D6EC7"
+                m.divLine.opacity   = 0.0
+            else
+                m.accentBar.opacity = 0.0
+                m.title.color       = "#52505F"
+                m.category.color    = "#2A2838"
+                m.divLine.opacity   = 1.0
+            end if
+        end sub
+        ]]>
+    </script>
+
+    <children>
+        <!-- Fondo FIJO negro — nunca cambia -->
+        <Rectangle width="700" height="100" color="#0A0A0F" />
+
+        <!-- Línea izquierda: foco indicator (opacity controlada por script) -->
+        <Rectangle id="accentBar"
+                   width="3" height="60"
+                   translation="[0, 20]"
+                   color="#C998FF"
+                   opacity="0.0" />
+
+        <!-- Logo -->
+        <Rectangle id="logoBg"
+                   width="120" height="72"
+                   translation="[18, 14]"
+                   color="#111118" />
+        <Poster id="logo"
+                width="120" height="72"
+                translation="[18, 14]"
+                loadDisplayMode="scaleToFit"
+                loadingDisplayMode="scaleToFit" />
+
+        <!-- Textos -->
+        <Group translation="[154, 22]">
+            <Label id="title"
+                   width="530"
+                   font="font:MediumBoldSystemFont"
+                   color="#52505F" />
+            <Label id="category"
+                   width="530"
+                   translation="[0, 46]"
+                   font="font:SmallSystemFont"
+                   color="#2A2838"
+                   letterSpacing="2" />
+        </Group>
+
+        <!-- Divisor sutil entre ítems (desaparece cuando el ítem tiene foco) -->
+        <Rectangle id="divLine"
+                   width="640" height="1"
+                   translation="[60, 99]"
+                   color="#FFFFFF"
+                   opacity="1.0"
+                   blendingEnabled="true"
+                   colorFactor="0.05" />
+
+    </children>
+</component>
