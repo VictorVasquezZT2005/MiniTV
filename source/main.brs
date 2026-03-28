@@ -18,6 +18,9 @@ sub Main()
     })
 
     scene = screen.CreateScene("MainScene")
+    ' Keep reference to scene to prevent garbage collection if needed, 
+    ' though screen.show() usually handles it.
+    m.scene = scene 
     screen.show()
 
     while(true)
@@ -28,13 +31,10 @@ sub Main()
             if msg.isScreenClosed() then return
 
         else if msgType = "roInputEvent"
-            ' Deep-link: extract contentId / mediaType from the input params
             info = msg.getInfo()
             if info <> invalid
                 contentId = info.Lookup("contentId")
-                mediaType = info.Lookup("mediaType")
                 if contentId <> invalid and contentId <> ""
-                    ' Pass the deep-link URL down to the scene via a global field
                     m.global.inputUrl = contentId
                 end if
             end if

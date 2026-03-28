@@ -1,24 +1,153 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="MainScene" extends="Scene">
-    <script type="text/brightscript" uri="pkg:/components/MainScene/MainScene.brs" />
-    
+    <script
+        type="text/brightscript"
+        uri="pkg:/components/MainScene/MainScene.brs"
+    />
+
     <children>
-        <LabelList 
-            id="channelList" 
-            translation="[50, 50]" 
-            itemSize="[440, 48]" />
+        <Rectangle id="background" width="1920" height="1080" color="#050507" />
 
-        <Video 
-            id="videoPlayer" 
-            translation="[520, 50]" 
-            width="710" 
-            height="400" />
+        <Group id="header">
+            <Rectangle width="1920" height="80" color="#0D0D14" />
+            <Rectangle
+                width="1920"
+                height="2"
+                translation="[0, 80]"
+                color="#1A1A24"
+            />
 
-        <Label 
-            id="statusLabel" 
-            translation="[50, 640]" 
-            text="" />
-        
+            <Group translation="[40, 16]">
+                <Rectangle width="6" height="48" color="#9D6EC7" />
+                <Label
+                    text="MiniTV"
+                    translation="[20, 0]"
+                    width="200"
+                    height="48"
+                    font="font:LargeBoldSystemFont"
+                    color="#ECEAFF"
+                    vertAlign="center"
+                />
+            </Group>
+        </Group>
+
+        <Rectangle
+            id="divider"
+            width="2"
+            height="1000"
+            translation="[700, 80]"
+            color="#14141C"
+        />
+
+        <Group id="channelBrowser" translation="[40, 110]">
+            <Label
+                id="guideTitle"
+                text="GUÍA DE CANALES"
+                font="font:MediumBoldSystemFont"
+                color="#3E3E4D"
+                letterSpacing="4"
+                width="620"
+            />
+
+            <MarkupGrid
+                id="channelList"
+                translation="[0, 50]"
+                itemSize="[620, 90]"
+                itemComponentName="ChannelItem"
+                numColumns="1"
+                numRows="9"
+                itemSpacing="[0, 10]"
+                drawFocusFeedback="false"
+            />
+        </Group>
+
+        <Group id="playerSection" translation="[702, 82]">
+
+            <Rectangle width="1218" height="685" color="#000000" />
+            <Video id="videoPlayer" width="1218" height="685" />
+
+            <Group id="statusOverlay" visible="false">
+                <Rectangle
+                    width="1218"
+                    height="685"
+                    color="#000000"
+                    opacity="0.85"
+                />
+                <Label
+                    id="statusOverlayText"
+                    width="1218"
+                    height="685"
+                    font="font:LargeBoldSystemFont"
+                    color="#C9A8FF"
+                    horizAlign="center"
+                    vertAlign="center"
+                />
+            </Group>
+
+            <Group id="infoPanel" translation="[0, 685]">
+                <Rectangle width="1218" height="313" color="#0D0D14" />
+                <Rectangle width="1218" height="2" color="#1A1A24" />
+
+                <Group translation="[40, 40]">
+                    <Label
+                        id="statusLabel"
+                        width="1140"
+                        height="30"
+                        font="font:SmallSystemFont"
+                        color="#4A4A5A"
+                        text="ESTADO DEL SISTEMA"
+                    />
+
+                    <Label
+                        id="currentChannelLabel"
+                        translation="[0, 50]"
+                        width="1140"
+                        font="font:LargeBoldSystemFont"
+                        color="#FFFFFF"
+                        text="Selecciona un canal"
+                    />
+
+                    <Label
+                        id="currentCategoryLabel"
+                        translation="[0, 120]"
+                        width="1140"
+                        font="font:MediumSystemFont"
+                        color="#9D6EC7"
+                        text="Esperando conexión..."
+                    />
+
+                    <Group translation="[0, 200]">
+                        <Rectangle
+                            id="liveBadgeBg"
+                            width="110"
+                            height="40"
+                            color="#C0304A"
+                        />
+                        <Label
+                            text="LIVE"
+                            width="110"
+                            height="40"
+                            font="font:SmallBoldSystemFont"
+                            color="#FFFFFF"
+                            horizAlign="center"
+                            vertAlign="center"
+                        />
+
+                        <Label
+                            id="signalDetail"
+                            translation="[130, 0]"
+                            width="900"
+                            height="40"
+                            font="font:SmallSystemFont"
+                            color="#3E3E4D"
+                            text="Señal inactiva"
+                            vertAlign="center"
+                        />
+                    </Group>
+                </Group>
+            </Group>
+        </Group>
+
         <get_channel_list id="loadTask" />
     </children>
 </component>
